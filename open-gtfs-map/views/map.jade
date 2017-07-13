@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  div#map_box
+  
+  if errors
+    ul
+      for error in errors
+        li!=error.msg
+    form(method='GET' action='')
+      div.form-group
+        label(for='gtfs_url') GTFS URL:
+        input#gtfs_url.form-control(type='text', name='gtfs_url')
+      button.btn(type='submit') Generate Map

@@ -3,13 +3,8 @@ extends layout
 block content
   h1= title
   
-  form(method='GET' action='')
+  form(method='GET' action='map')
     div.form-group
-      label(for='gtfs-url') GTFS URL:
-      input#gtfs-url.form-control(type='text', name='gtfs-url')
+      label(for='gtfs_url') GTFS URL:
+      input#gtfs_url.form-control(type='text', name='gtfs_url')
     button.btn(type='submit') Generate Map
-    
-    if errors
-      ul
-        for error in errors
-          li!= error.msg
