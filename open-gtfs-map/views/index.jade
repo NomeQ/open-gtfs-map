@@ -5,6 +5,6 @@ block content
   
   form(method='GET' action='map')
     div.form-group
-      label(for='gtfs_url') GTFS URL:
-      input#gtfs_url.form-control(type='text', name='gtfs_url')
+      label(for='gtfs_url') GTFS Feed URL:
+      input#gtfs_url.form-control(type='text', name='gtfs_url', placeholder='http://mygtfsfeed.com')
     button.btn(type='submit') Generate Map
