@@ -1,8 +1,39 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px Roboto, Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+label {
+    margin-right: 6px;
+}
+
+input#gtfs_url {
+    width: 450px;
+    max-width: 70%;
+    padding: 2px 4px;
+    margin-right: 6px;
+}
+
+button.btn {
+    display: inline-block;
+    background-color: #00aec4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px 0 #4e4e4e;
+    cursor: pointer;
+    font-size: 100%;
+    padding: 4px 8px;
+    transition: background-color 500ms linear, box-shadow 500ms linear;
+}
+
+button.btn:hover {
+    box-shadow: 1px 1px 0px 0 #3c3c3c;
+    background-color: #007482;
 }
