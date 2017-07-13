@@ -7,3 +7,5 @@ I have perhaps been ambitious in learning a new framework for this project. Thus
 - Started planning project with classic pen and paper
 - Made overall structural and strategic decisions
 - Thinkin' bout data structures 
+- Built skeleton, basic site structure with Express framework and Node JS
+- Created infrastructure for error-handling
