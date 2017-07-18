@@ -30,7 +30,7 @@ button.btn {
     cursor: pointer;
     font-size: 100%;
     padding: 4px 8px;
-    transition: background-color 500ms linear, box-shadow 500ms linear;
+    transition: background-color 300ms linear, box-shadow 300ms linear;
 }
 
 button.btn:hover {
