@@ -9,7 +9,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    
+    // Render the index template with feed URL form
     res.render('index', { title: 'Open GTFS Map' });
     
 });

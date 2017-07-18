@@ -4,6 +4,7 @@
  * released under MIT license
  */
 
+// Required packages
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -13,17 +14,17 @@ var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var validUrl = require('valid-url');
 
+// Routes for the two possible pages
 var index = require('./routes/index');
 var mapPage = require('./routes/map');
 
 var app = express();
 
-// view engine setup
+// View engine setup, use Jade for html templates
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// Middleware for logging, parsing, validation
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -37,6 +38,7 @@ app.use(expressValidator({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Route paths for homepage and map page
 app.use('/', index);
 app.use('/map', mapPage);
 
