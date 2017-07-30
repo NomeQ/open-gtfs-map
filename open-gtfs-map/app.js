@@ -33,7 +33,10 @@ app.use(expressValidator({
     customValidators: {
         isUrl: function(url_string) {
             return validUrl.isUri(url_string);
-        }
+		},
+		isZip: function(url_string) {
+			return url_string.slice(-3) === 'zip';
+		}
     }
 }));
 app.use(express.static(path.join(__dirname, 'public')));

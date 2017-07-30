@@ -5,13 +5,13 @@
  */
 
 var express = require('express');
-var mapFromGTFS = require('../mapmaker.js');
+var mapFromGTFS = require('../maps/mapmaker.js');
 var router = express.Router();
 
 /* GET map page */
-router.get('/', function(req, res, next) {
+router.get('/', async (req, res, next) => {
     // Check that the input is formatted as a valid URL
-    req.checkQuery('gtfs_url', 'Valid URL Required').notEmpty().isUrl();
+    req.checkQuery('gtfs_url', 'Valid URL Required').notEmpty().isUrl().isZip();
     req.sanitize('gtfs_url').trim();
     var errors = req.validationErrors();
     var gtfs_url = req.query.gtfs_url;
@@ -22,12 +22,10 @@ router.get('/', function(req, res, next) {
         return;
     }
     // Download and process feed on server 
-    // TODO: Move CPU-bound computation to separate server/consider moving to
-    // client-side
-    var map = mapFromGTFS(gtfs_url);
-    
-    // Render the SVG map, or any processing errors
-    res.render('map', {title: 'Map for ' + gtfs_url, map: map.map, errors: map.errors});
+    // TODO: Move CPU-bound computation to separate server
+    mapFromGTFS(gtfs_url, function(result) {
+    	res.render('map', {title: 'Map for ' + result.name, map: result.map, errors: result.errors});
+    });
 });
 
 module.exports = router;
