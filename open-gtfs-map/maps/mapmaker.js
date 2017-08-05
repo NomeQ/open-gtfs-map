@@ -2,6 +2,10 @@ var request = require('request');
 var extract = require('extract-zip');
 var csv = require('csv');
 var fs = require('fs');
+var route = require('./route.js');
+var parse = require('csv-parse');
+
+var routes = [];
 
 /**
  * @param {String} URL for zipped GTFS feed
@@ -18,13 +22,23 @@ var mapFromGTFS = function(gtfs_url, callback) {
 	  });
 };
 
-function extractFeed(feed_zip, callback) {	
-	extract(fname, function(err) {
+function extractFeed(feed_zip, callback) {
+	var extract_dir = process.cwd() + '/tmp/';	
+	extract(feed_zip, {dir: extract_dir}, function(err) {
 		if (err) {
-			callback({name: 'Error', errors:[{msg: "Error unzipping feed"}]});
+			callback({name: 'Error', errors:[{msg: err.message}]});
 		}
-		
+		importRoutes(extract_dir, callback);
 	});
+}
+
+function importRoutes(dirname, callback) {
+	fs.readFile(dirname, function(err, data) {
+		parse(data, {columns: false, trim: true}, function(err, rows) {
+			
+		});
+	});
+	callback({name: 'Success'});
 }
 
 module.exports = mapFromGTFS;
