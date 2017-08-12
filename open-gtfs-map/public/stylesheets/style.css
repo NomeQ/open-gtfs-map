@@ -37,3 +37,10 @@ button.btn:hover {
     box-shadow: 1px 1px 0px 0 #3c3c3c;
     background-color: #007482;
 }
+
+svg {
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	fill: transparent;
+	stroke-width: 8px;
+}

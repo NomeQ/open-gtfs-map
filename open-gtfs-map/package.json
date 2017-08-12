@@ -18,6 +18,7 @@
     "morgan": "~1.8.1",
     "request": "^2.81.0",
     "serve-favicon": "~2.4.2",
+    "simplify-js": "^1.2.1",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
