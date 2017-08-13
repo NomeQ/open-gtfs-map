@@ -134,6 +134,7 @@ function drawShapes(callback) {
 	map.simplifyPaths();
 	// Find the stops the match the 
 	map.stops = getBestStops(map.getTransitionCoords());
+	map.addLegend(routes);
 	
 	callback({name: feedname, map: map.export()});
 }
@@ -150,13 +151,38 @@ function getBestStops(paths) {
 		var pt_2 = paths[i][paths[i].length - 1];
 		var id_2 = pt_2.id;
 		bestStops[id_2] = {'name' : stops[id_2].stop_name, 'x' : pt_2.x, 'y' : pt_2.y};
+		
+		if (paths[i].length > 4) {
+			var midpoint = Math.floor(paths[i].length / 2);
+			var pt_3 = paths[i][midpoint];
+			var id_3 = pt_3.id;
+			bestStops[id_3] = {'name' : stops[id_3].stop_name, 'x' : pt_3.x, 'y' : pt_3.y};
+		}
 	}
 	// TODO: Remove stops that are too close together
-	
+	bestStops = filterStops(bestStops, 500);
 	return bestStops;
 }
 
-function getSqDist(p1, p2) {
+function filterStops(stopList, threshold) {
+	var keyList = Object.keys(stopList);
+	var toDelete = [];
+	for (var i = 0; i < keyList.length - 1; i++) {
+		curr_stop = stopList[keyList[i]];
+		for (var j = i + 1; j < keyList.length; j++) {
+			next_stop = stopList[keyList[j]];
+			if (getDist(curr_stop, next_stop) < threshold) {
+				toDelete.push(keyList[j]);
+			}
+		}
+	}
+	toDelete.forEach(function(key) {
+		delete stopList[key];
+	});
+	return stopList;
+}
+
+function getDist(p1, p2) {
 
     var dx = p1.x - p2.x,
         dy = p1.y - p2.y;

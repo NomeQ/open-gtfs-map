@@ -8,6 +8,7 @@ function SVG() {
 	
 	this.groups = {};
 	this.stops = {};
+	this.legend = [];
 	this.currGroup;
 	
 	this.setScale = function(lat, lon) {
@@ -16,8 +17,8 @@ function SVG() {
 		var raw_height = Math.max(...lon) - shifty;
 		var raw_width = Math.max(...lat) - shiftx;
 		var scale_factor = 800 / raw_width;
-		this.width = 800 * 1.2
-		this.height = raw_height * scale_factor * 1.2;
+		this.width = 800 * 1.3;
+		this.height = raw_height * scale_factor * 1.3;
 		this.scaleX = function(x_val) {
 			return (x_val - shiftx) * scale_factor;
 		}
@@ -42,6 +43,10 @@ function SVG() {
 		}
 	}
 	
+	this.addLegend = function(routes) {
+		
+	}
+	
 	this.getTransitionCoords = function(dist=10) {
 		var stops = [];
 		for (var group in this.groups) {
@@ -53,8 +58,8 @@ function SVG() {
 	
 	this.export = function() {
 		var html = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + this.width + ' ' + this.height + '">';
-		html += '<g id="paths" transform="rotate(-90) translate(-850, 0)">' + this.drawPaths() + '</g>';
-		html += '<g id="stops" transform="rotate(-90) translate(-850, 0)">' + this.drawStops() + '</g>';
+		html += '<g id="paths" transform="rotate(-90) translate(-850, 10)">' + this.drawPaths() + '</g>';
+		html += '<g id="stops" transform="rotate(-90) translate(-850, 10)">' + this.drawStops() + '</g>';
 		html += '</svg>';
 		return html;
 	}
@@ -80,8 +85,13 @@ function SVG() {
 		for (var id in this.stops) {
 			s = this.stops[id];
 			html += '<circle cx="' + s.x + '" cy="' + s.y +'" r="10" class="stop-pt" />';
+			html += '<text x="' + (s.x + 20) + '" y="' + (s.y + 20) +'" transform="rotate(90,' + s.x + ',' + s.y +')" font-size="20">' + s.name + '</text>';
 		}
 		return html;
+	}
+	
+	this.drawLegend = function() {
+		
 	}
 }
 
