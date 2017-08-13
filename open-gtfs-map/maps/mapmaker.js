@@ -128,42 +128,40 @@ function drawShapes(callback) {
 			var this_stop = stops[best_trip[i]];
 			var lat = this_stop['stop_lat'];
 			var lon = this_stop['stop_lon'];
-			map.addPoint(lat, lon);
+			map.addPoint(lat, lon, best_trip[i]);
 		}
 	}
 	map.simplifyPaths();
-	// Find the closest stops to the simplified paths
-	//var mapStops = getBestStops(map.getTransitionCoords());
+	// Find the stops the match the 
+	map.stops = getBestStops(map.getTransitionCoords());
 	
 	callback({name: feedname, map: map.export()});
 }
 
-
-// TODO: Shit, stops from the map are now on a different coordinate system. Maybe
-// I should stop that for now... Do the new coords RIGHT BEFORE exporting
+// Get stops after simplifying routes. 
 function getBestStops(paths) {
 	var bestStops = {};
 	// Always grab the first and last stop on a path, 
 	// also grab any that are significantly far from others
 	for ( var i = 0; i < paths.length; i++) {
-		var pt = findStop(paths[i][0]);
-		bestStops[pt] = {'name' : pt.stop_name, 'x' : pt.stop_lat, 'y' : pt.stop_lon};
-		pt = findStop(paths[i][paths.length - 1]);
-		bestStops[pt] = {'name' : pt.stop_name, 'x' : pt.stop_lat, 'y' : pt.stop_lon};
+		var pt_1 = paths[i][0];
+		var id_1 = pt_1.id;
+		bestStops[id_1] = {'name' : stops[id_1].stop_name, 'x' : pt_1.x, 'y' : pt_1.y};
+		var pt_2 = paths[i][paths[i].length - 1];
+		var id_2 = pt_2.id;
+		bestStops[id_2] = {'name' : stops[id_2].stop_name, 'x' : pt_2.x, 'y' : pt_2.y};
 	}
+	// TODO: Remove stops that are too close together
+	
+	return bestStops;
 }
 
-function findStop(coords) {
-	
-}
+function getSqDist(p1, p2) {
 
-// Don't bother getting the square root in the classic
-// distance formula. Doesn't effect relative distance.
-function getDist(p1, p2) {
-	var dx = p1.x - p2.x;
-	var dy = p1.y - p2.y;
-	
-	return dx * dx + dy * dy;
+    var dx = p1.x - p2.x,
+        dy = p1.y - p2.y;
+
+    return dx * dx + dy * dy;
 }
 
 module.exports = mapFromGTFS;

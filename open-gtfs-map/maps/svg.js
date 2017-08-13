@@ -7,7 +7,7 @@ function SVG() {
 	this.scaleY;
 	
 	this.groups = {};
-	this.stops = [];
+	this.stops = {};
 	this.currGroup;
 	
 	this.setScale = function(lat, lon) {
@@ -31,8 +31,8 @@ function SVG() {
 		this.currGroup = this.groups[rname]['path'];
 	}
 	
-	this.addPoint = function(lat, lon) {
-		this.currGroup.push({x : this.scaleX(lat), y: this.scaleY(lon)});
+	this.addPoint = function(lat, lon, id) {
+		this.currGroup.push({x : this.scaleX(lat), y: this.scaleY(lon), id: id});
 	}
 	
 	this.simplifyPaths = function() {
@@ -53,7 +53,14 @@ function SVG() {
 	
 	this.export = function() {
 		var html = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + this.width + ' ' + this.height + '">';
-		html += '<g id="paths" transform="rotate(-90) translate(-850, 0)">';
+		html += '<g id="paths" transform="rotate(-90) translate(-850, 0)">' + this.drawPaths() + '</g>';
+		html += '<g id="stops" transform="rotate(-90) translate(-850, 0)">' + this.drawStops() + '</g>';
+		html += '</svg>';
+		return html;
+	}
+	
+	this.drawPaths = function() {
+		var html = '';
 		for (var group in this.groups) {
 			g = this.groups[group];
 			html += '<g id="'+ group + '" style="stroke:' + g['color'] + ';">';
@@ -65,8 +72,15 @@ function SVG() {
 			html += '" />';
 			html += '</g>';
 		}
-		html += '</g>';
-		html += '</svg>';
+		return html;
+	}
+	
+	this.drawStops = function() {
+		var html = '';
+		for (var id in this.stops) {
+			s = this.stops[id];
+			html += '<circle cx="' + s.x + '" cy="' + s.y +'" r="10" class="stop-pt" />';
+		}
 		return html;
 	}
 }

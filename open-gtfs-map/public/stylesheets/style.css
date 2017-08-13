@@ -42,5 +42,11 @@ svg {
 	stroke-linecap: round;
 	stroke-linejoin: round;
 	fill: transparent;
-	stroke-width: 8px;
+	stroke-width: 10px;
+}
+
+svg circle.stop-pt {
+	fill: white;
+	stroke: black;
+	stroke-width: 3px;
 }
