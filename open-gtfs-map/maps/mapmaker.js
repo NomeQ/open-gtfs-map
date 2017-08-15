@@ -6,11 +6,11 @@ var route = require('./route.js');
 var parse = require('csv-parse');
 var svg = require('./svg.js');
 
-var routes = {};
-var stops = {};
-var trips = {};
-var lats = [];
-var lons = [];
+var routes;
+var stops;
+var trips;
+var lats;
+var lons;
 var feedname;
 
 /**
@@ -18,6 +18,11 @@ var feedname;
  * @return {Object} name, map, errors
  **/
 var mapFromGTFS = function(gtfs_url, callback) {
+	routes = {};
+	stops = {};
+	trips = {};
+	lats = [];
+	lons = [];
 	feedname = gtfs_url.split("/").slice(-1)[0];
 	var fname = './tmp/' + feedname;
 	// TODO: check to see if feed has already been downloaded
@@ -64,9 +69,12 @@ function importStops(dirname, callback) {
 			}
 			for (var i=0; i < rows.length; i++) {
 				var stop_id = rows[i]['stop_id'];
+				var coords = toCartesian(rows[i]['stop_lat'],rows[i]['stop_lon']);
+				rows[i].stop_lat = coords.lat;
+				rows[i].stop_lon = coords.lon;
 				stops[stop_id] = rows[i];
-				lats.push(rows[i]['stop_lat']);
-				lons.push(rows[i]['stop_lon']);
+				lats.push(coords.lat);
+				lons.push(coords.lon);
 			}
 			importTrips(dirname, callback);
 		});
@@ -188,6 +196,26 @@ function getDist(p1, p2) {
         dy = p1.y - p2.y;
 
     return dx * dx + dy * dy;
+}
+
+// Convert WGS84 coordinates to conventional Cartesian 'North is up' plane
+// Basic algorithm from https://gist.github.com/govert/1b373696c9a27ff4c72a
+function toCartesian(lat, lon) {
+	// const a = 6378137;           // WGS-84 Earth semimajor axis (m)
+	//     const b = 6356752.3142;      // WGS-84 Earth semiminor axis (m)
+	//     const f = (a-b)/a;           // Ellipsoid Flatness
+	//     const e_sq = f * (2 - f);    // Square of Eccentricity
+	//
+	// var lambda = lat * Math.PI / 180;
+	// var phi = lon * Math.PI / 180;
+	//
+	// var s = Math.sin(lambda);
+	// var N = a / Math.sqrt(1 - e_sq * s * s);
+	//
+	// var x = N * Math.cos(lambda) * Math.cos(phi);
+	// var y = N * Math.cos(lambda) * Math.sin(phi);
+	// return({lat: x, lon: y});
+	return({lat: lat, lon: lon});
 }
 
 module.exports = mapFromGTFS;
