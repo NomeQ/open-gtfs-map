@@ -30,8 +30,8 @@ function SVG() {
 		var raw_height = Math.max(...lon) - shifty;
 		var raw_width = Math.max(...lat) - shiftx;
 		var scale_factor = 800 / raw_width;
-		this.width = 800 * 1.3;
-		this.height = raw_height * scale_factor * 1.3;
+		this.width = 800 * 1.1;
+		this.height = raw_height * scale_factor * 1.1;
 		this.scaleX = function(x_val) {
 			return ((x_val - shiftx) * scale_factor) + 20;
 		}
@@ -66,7 +66,7 @@ function SVG() {
 	this.simplifyPaths = function() {
 		for (var group in this.groups) {
 			g = this.groups[group];
-			g.path = simplify(g.path, 11, true);
+			g.path = simplify(g.path, 0.1, true);
 		}
 	}
 	
@@ -90,13 +90,13 @@ function SVG() {
 	
 	this.export = function() {
 		var html = this.drawLegend();
-		html += this.drawBkgd();
+		//html += this.drawBkgd();
 		html += '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + this.width + ' ' + this.height + '">';
 		html += '<g id="outlines">' + this.drawPaths() + '</g>';
 		html += '<g id="paths">' + this.drawPaths() + '</g>';
 		html += '<g id="highlights">' + this.drawPaths() + '</g>';
-		//html += '<g id="stop-highlights" transform="rotate(-90) translate(-850, 10)">' + this.drawStops() + '</g>';
-		//html += '<g id="stops" transform="rotate(-90) translate(-850, 10)">' + this.drawStops() + '</g>';
+		html += '<g id="stop-highlights">' + this.drawStops() + '</g>';
+		html += '<g id="stops">' + this.drawStops() + '</g>';
 		html += '</svg>';
 		return html;
 	}
@@ -121,8 +121,8 @@ function SVG() {
 		var html = '';
 		for (var id in this.stops) {
 			s = this.stops[id];
-			html += '<circle cx="' + s.x + '" cy="' + s.y +'" r="10" class="stop-pt" />';
-			html += '<text x="' + (s.x + 20) + '" y="' + (s.y + 20) +'" transform="rotate(90,' + s.x + ',' + s.y +')" font-size="20">' + s.name + '</text>';
+			html += '<circle cx="' + s.x + '" cy="' + s.y +'" r="22" class="stop-pt" />';
+			html += '<text x="' + (s.x + 25) + '" y="' + (s.y + 25) +'" font-size="35">' + s.name + '</text>';
 		}
 		return html;
 	}

@@ -65,23 +65,26 @@ button.btn:hover {
 
 #map_box {
 	position: relative;
-	overflow: hidden;
+	background: #f3f1ed;
 }
 
 #legend {
 	position: absolute;
 	top: 10px;
 	right: 10px;
-	width: 25%;
+	width: 30%;
 	text-align: center;
 }
 
 svg {
+	max-width: 75%;
+	max-width: 50%;
+	overflow: visible;
 	stroke-linecap: round;
 	stroke-linejoin: round;
 	fill: transparent;
-	stroke-width: 10px;
-	transform: rotate(-90deg);
+	stroke-width: 30px;
+	/*transform: rotate(-90deg);*/
 }
 
 svg text {
@@ -90,13 +93,13 @@ svg text {
 
 #stop-highlights text {
 	stroke: white;
-	stroke-width: 5px;
+	stroke-width: 10px;
 }
 
 svg circle.stop-pt {
 	fill: white;
 	stroke: black;
-	stroke-width: 3px;
+	stroke-width: 5px;
 }
 
 g > g {
@@ -117,6 +120,7 @@ g > g {
 #outlines > g {
 	stroke: #fff !important;
 	stroke-width:16px;
+	stroke-width:40px;
 }
 
 #outlines > g.focused {

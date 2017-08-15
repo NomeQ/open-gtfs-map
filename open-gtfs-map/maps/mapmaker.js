@@ -177,7 +177,7 @@ function getBestStops(paths) {
 		}
 	}
 	// TODO: Remove stops that are too close together
-	bestStops = filterStops(bestStops, 500);
+	bestStops = filterStops(bestStops, 3000);
 	return bestStops;
 }
 
@@ -210,21 +210,22 @@ function getDist(p1, p2) {
 // Convert WGS84 coordinates to conventional Cartesian 'North is up' plane
 // Basic algorithm from https://gist.github.com/govert/1b373696c9a27ff4c72a
 function toCartesian(lat, lon) {
-	// const a = 6378137;           // WGS-84 Earth semimajor axis (m)
-	//     const b = 6356752.3142;      // WGS-84 Earth semiminor axis (m)
-	//     const f = (a-b)/a;           // Ellipsoid Flatness
-	//     const e_sq = f * (2 - f);    // Square of Eccentricity
-	//
-	// var lambda = lat * Math.PI / 180;
-	// var phi = lon * Math.PI / 180;
-	//
-	// var s = Math.sin(lambda);
-	// var N = a / Math.sqrt(1 - e_sq * s * s);
-	//
-	// var x = N * Math.cos(lambda) * Math.cos(phi);
-	// var y = N * Math.cos(lambda) * Math.sin(phi);
-	// return({lat: x, lon: y});
-	return({lat: lat, lon: lon});
+	const a = 6378137;           // WGS-84 Earth semimajor axis (m)
+	    const b = 6356752.3142;      // WGS-84 Earth semiminor axis (m)
+	    const f = (a-b)/a;           // Ellipsoid Flatness
+	    const e_sq = f * (2 - f);    // Square of Eccentricity
+
+	var lambda = lat * Math.PI / 180;
+	var phi = lon * Math.PI / 180;
+
+	var s = Math.sin(lambda);
+	var N = a / Math.sqrt(1 - e_sq * s * s);
+
+	var x = N * Math.cos(lambda) * Math.cos(phi);
+	var y = N * Math.cos(lambda) * Math.sin(phi);
+	y = -y;
+	return({lat: x, lon: y});
+	// return({lat: lat, lon: lon});
 }
 
 module.exports = mapFromGTFS;
