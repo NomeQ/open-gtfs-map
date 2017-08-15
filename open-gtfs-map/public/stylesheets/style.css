@@ -38,19 +38,92 @@ button.btn:hover {
     background-color: #007482;
 }
 
+#legend a {
+	color: white;
+	text-decoration: none;
+	display: block;
+	padding: 6px 12px;
+	border-radius: 20px;
+	border: 3px solid white;
+	box-shadow: 2px 2px 2px #ccc;
+	margin-bottom: 3px;
+	cursor: pointer;
+}
+
+#legend a:hover {
+	box-shadow: 1px 1px 1px #b5b5b5;
+}
+
+#map_box {
+	position: relative;
+	overflow: hidden;
+}
+
+#legend {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 25%;
+	text-align: center;
+}
+
 svg {
 	stroke-linecap: round;
 	stroke-linejoin: round;
 	fill: transparent;
 	stroke-width: 10px;
+	transform: rotate(-90deg);
 }
 
 svg text {
 	fill: black;
 }
 
+#stop-highlights text {
+	stroke: white;
+	stroke-width: 5px;
+}
+
 svg circle.stop-pt {
 	fill: white;
 	stroke: black;
 	stroke-width: 3px;
+}
+
+g > g {
+	transition: opacity .3s linear;
+}
+
+#map-bkgd {
+	position: absolute;
+	z-index: -1;
+	width: 100%;
+	height: auto;
+}
+
+#outlines > g {
+	transition: stroke-width .3s linear;
+}
+
+#outlines > g {
+	stroke: #fff !important;
+	stroke-width:16px;
+}
+
+#outlines > g.focused {
+	stroke-width: 26px;
+}
+
+#highlights > g {
+	opacity: 0;
+	stroke-width: 18px;
+	cursor: pointer;
+}
+
+#highlights > g:hover {
+	opacity: 1;
+}
+
+#highlights > g.focused {
+	opacity: 1;
 }
