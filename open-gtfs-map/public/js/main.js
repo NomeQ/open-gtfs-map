@@ -1,3 +1,19 @@
+/**
+ * TODO: Move code here for simplifying routes 
+ */
+
+/**
+ * TODO: Move code here for changing stops
+*/
+
+/**
+ * TODO: Add controls for #adjust_box here
+ */
+
+/**
+ * Interactivity code
+ */
+
 $(document).ready(function() {
 	$('#legend a').on('mouseenter click', function() {
 		var routeClass = $(this).attr('class');

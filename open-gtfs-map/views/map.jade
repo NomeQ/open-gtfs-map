@@ -3,6 +3,7 @@ extends layout
 block content
   h1= title
   if map
+    div#adjust_box 
     div#map_box!= map
     button#download Download Map SVG
   

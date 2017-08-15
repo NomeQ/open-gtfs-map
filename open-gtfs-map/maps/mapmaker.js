@@ -148,45 +148,49 @@ function drawShapes(callback) {
 }
 
 // Get stops after simplifying routes. 
-function getBestStops(paths) {
+function getBestStops(paths) { 
+	// TODO: move this functionality to front-end
+	
 	var bestStops = {};
-	// Always grab the first and last stop on a path, 
-	// also grab any that are significantly far from others
-	for ( var i = 0; i < paths.length; i++) {
-		var pt_1 = paths[i][0];
-		var id_1 = pt_1.id;
-		bestStops[id_1] = {'name' : stops[id_1].stop_name, 'x' : pt_1.x, 'y' : pt_1.y};
-		var pt_2 = paths[i][paths[i].length - 1];
-		var id_2 = pt_2.id;
-		bestStops[id_2] = {'name' : stops[id_2].stop_name, 'x' : pt_2.x, 'y' : pt_2.y};
-		
-		if (paths[i].length > 4) {
-			var midpoint = Math.floor(paths[i].length / 2);
-			var pt_3 = paths[i][midpoint];
-			var id_3 = pt_3.id;
-			bestStops[id_3] = {'name' : stops[id_3].stop_name, 'x' : pt_3.x, 'y' : pt_3.y};
-		}
-	}
-	// TODO: Remove stops that are too close together
-	bestStops = filterStops(bestStops, 500);
+// 	// Always grab the first and last stop on a path,
+// 	// also grab any that are significantly far from others
+// 	for ( var i = 0; i < paths.length; i++) {
+// 		var pt_1 = paths[i][0];
+// 		var id_1 = pt_1.id;
+// 		bestStops[id_1] = {'name' : stops[id_1].stop_name, 'x' : pt_1.x, 'y' : pt_1.y};
+// 		var pt_2 = paths[i][paths[i].length - 1];
+// 		var id_2 = pt_2.id;
+// 		bestStops[id_2] = {'name' : stops[id_2].stop_name, 'x' : pt_2.x, 'y' : pt_2.y};
+//
+// 		if (paths[i].length > 4) {
+// 			var midpoint = Math.floor(paths[i].length / 2);
+// 			var pt_3 = paths[i][midpoint];
+// 			var id_3 = pt_3.id;
+// 			bestStops[id_3] = {'name' : stops[id_3].stop_name, 'x' : pt_3.x, 'y' : pt_3.y};
+// 		}
+// 	}
+// 	// TODO: Remove stops that are too close together
+// 	bestStops = filterStops(bestStops, 500);
 	return bestStops;
+
 }
 
 function filterStops(stopList, threshold) {
-	var keyList = Object.keys(stopList);
-	var toDelete = [];
-	for (var i = 0; i < keyList.length - 1; i++) {
-		curr_stop = stopList[keyList[i]];
-		for (var j = i + 1; j < keyList.length; j++) {
-			next_stop = stopList[keyList[j]];
-			if (getDist(curr_stop, next_stop) < threshold) {
-				toDelete.push(keyList[j]);
-			}
-		}
-	}
-	toDelete.forEach(function(key) {
-		delete stopList[key];
-	});
+	// TODO: Move this functionality to front end
+	// var keyList = Object.keys(stopList);
+// 	var toDelete = [];
+// 	for (var i = 0; i < keyList.length - 1; i++) {
+// 		curr_stop = stopList[keyList[i]];
+// 		for (var j = i + 1; j < keyList.length; j++) {
+// 			next_stop = stopList[keyList[j]];
+// 			if (getDist(curr_stop, next_stop) < threshold) {
+// 				toDelete.push(keyList[j]);
+// 			}
+// 		}
+// 	}
+// 	toDelete.forEach(function(key) {
+// 		delete stopList[key];
+// 	});
 	return stopList;
 }
 
