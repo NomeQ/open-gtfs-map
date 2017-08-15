@@ -1,3 +1,12 @@
+/**
+ * package: open-gtfs-map 
+ * copyright (c) nomeQ 2017
+ * Released under the MIT license, see
+ * LICENSE for more details.
+ *
+ * Download and parse GTFS, create map
+ **/
+
 var request = require('request');
 var extract = require('extract-zip');
 var csv = require('csv');

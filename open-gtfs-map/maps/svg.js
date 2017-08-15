@@ -1,3 +1,12 @@
+/**
+ * package: open-gtfs-map 
+ * copyright (c) nomeQ 2017
+ * Released under the MIT license, see
+ * LICENSE for more details.
+ *
+ * Create an SVG map
+ **/
+
 var simplify = require('simplify-js');
 
 function SVG() {

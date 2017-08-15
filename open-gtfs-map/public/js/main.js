@@ -1,3 +1,12 @@
+/**
+ * package: open-gtfs-map 
+ * copyright (c) nomeQ 2017
+ * Released under the MIT license, see
+ * LICENSE for more details.
+ *
+ * Interactive map features 
+ **/
+
 $(document).ready(function() {
 	$('#legend a').on('mouseenter click', function() {
 		var routeClass = $(this).attr('class');

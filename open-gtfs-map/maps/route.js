@@ -1,3 +1,12 @@
+/**
+ * package: open-gtfs-map 
+ * copyright (c) nomeQ 2017
+ * Released under the MIT license, see
+ * LICENSE for more details.
+ *
+ * The route object
+ **/
+
 function Route(fields) {
 	this.fields = fields;
 	this.trips = {};

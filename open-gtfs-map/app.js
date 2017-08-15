@@ -1,8 +1,11 @@
-/*
+/**
  * package: open-gtfs-map 
- * copyright nomeQ 2017
- * released under MIT license
- */
+ * copyright (c) nomeQ 2017
+ * Released under the MIT license, see
+ * LICENSE for more details.
+ *
+ * Express App and middleware setup
+ **/
 
 // Required packages
 var express = require('express');
